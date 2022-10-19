@@ -5,6 +5,7 @@ class Kampus extends CI_Controller {
         parent::__construct();
         $this->load->model('m_data');
         $this->load->helper('url');
+        $this->load->library('form_validation');
     }
 
     function index() {
@@ -17,10 +18,17 @@ class Kampus extends CI_Controller {
     }
 
     function tambah_aksi() {
-        $nim = $this->input->post('nim');
-        $nama = $this->input->post('nama');
-        $alamat = $this->input->post('alamat');
-        $pekerjaan = $this->input->post('pekerjaan');
+        $this->form_validation->set_rules('nim','NIM','required|min_length[8]|max_length[8]');
+        $this->form_validation->set_rules('nama','Nama','required|min_length[5]|max_length[5]');
+        $this->form_validation->set_rules('alamat','Alamat','required|alpha');
+        $this->form_validation->set_rules('pekerjaan','Pekerjaan','required|alpha');
+
+        if($this->form_validation->run() == TRUE)
+        {
+           $nim = $this->input->post('nim');
+           $nama = $this->input->post('nama');
+           $alamat = $this->input->post('alamat');
+           $pekerjaan = $this->input->post('pekerjaan');
 
 $config['max_size']=2048;
 $config['allowed_types']="png|jpg|jpeg|gif";
@@ -45,8 +53,10 @@ $foto=$location.$data_image;
             );
         $this->m_data->input_data($data,'mahasiswa');
         redirect('kampus/index');
+    }else{
+    $this->load->view('input_data');
     }
-    
+}
     function edit($id) {
         $where = array('id' => $id);
         $data['mahasiswa'] = $this->m_data->edit_data($where,'mahasiswa')->result();

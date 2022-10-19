@@ -2,18 +2,19 @@
 <html>
     <head>
         <title>Tampil Data</title>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>desain/css/style.css">
 </head>
 <body>
 <center><h1>Data Mahasiswa</h1></center>
-<table style="margin:20px auto;" border="1">
+<table style="margin:20px auto;" border="1" id="tampilantabel">
 <tr>
-    <th>No</th>
-    <th>NIM</th>
-    <th>Nama</th>
-    <th>Alamat</th>
-    <th>Pekerjaan</th>
-    <th>Foto</th>
-    <th>Action</th>
+    <th style="color:white">No</th>
+    <th style="color:white">NIM</th>
+    <th style="color:white">Nama</th>
+    <th style="color:white">Alamat</th>
+    <th style="color:white">Pekerjaan</th>
+    <th style="color:white">Foto</th>
+    <th style="color:white">Action</th>
 </tr>
 <?php
 $no = 1;
