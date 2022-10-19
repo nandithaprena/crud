@@ -54,8 +54,6 @@ input[type=submit],input[type=button], input[type=reset] {
     float:right;
 }
 
-}
-
 input[type=submit]:hover {
     background-color: #af4c54;
 }
