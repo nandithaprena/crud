@@ -3,6 +3,11 @@ class Kampus extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+
+    if($this->session->userdata('status') != "login") {
+        redirect(base_url("login"));
+    }
+
         $this->load->model('m_data');
         $this->load->helper('url');
         $this->load->library('form_validation');
@@ -30,19 +35,19 @@ class Kampus extends CI_Controller {
            $alamat = $this->input->post('alamat');
            $pekerjaan = $this->input->post('pekerjaan');
 
-$config['max_size']=2048;
-$config['allowed_types']="png|jpg|jpeg|gif";
-$config['remove_spaces']=TRUE;
-$config['overwrite']=TRUE;
-$config['upload_path']=FCPATH.'images';
+            $config['max_size']=2048;
+            $config['allowed_types']="png|jpg|jpeg|gif";
+            $config['remove_spaces']=TRUE;
+            $config['overwrite']=TRUE;
+            $config['upload_path']=FCPATH.'images';
 
-$this->load->library('upload');
-$this->upload->initialize($config);
+            $this->load->library('upload');
+            $this->upload->initialize($config);
 
-$this->upload->do_upload('foto');
-$data_image=$this->upload->data('file_name');
-$location='images/';
-$foto=$location.$data_image;
+            $this->upload->do_upload('foto');
+            $data_image=$this->upload->data('file_name');
+            $location='images/';
+            $foto=$location.$data_image;
 
         $data = array(
             'nim' => $nim,
@@ -51,12 +56,14 @@ $foto=$location.$data_image;
             'pekerjaan' => $pekerjaan,
             'foto' => $foto
             );
+
         $this->m_data->input_data($data,'mahasiswa');
         redirect('kampus/index');
-    }else{
-    $this->load->view('input_data');
+        }else{
+            $this->load->view('input_data');
+        }
     }
-}
+
     function edit($id) {
         $where = array('id' => $id);
         $data['mahasiswa'] = $this->m_data->edit_data($where,'mahasiswa')->result();
@@ -70,19 +77,19 @@ $foto=$location.$data_image;
         $alamat = $this->input->post('alamat');
         $pekerjaan = $this->input->post('pekerjaan');
 
-$config['max_size']=2048;
-$config['allowed_types']="png|jpg|jpeg|gif";
-$config['remove_spaces']=TRUE;
-$config['overwrite']=TRUE;
-$config['upload_path']=FCPATH.'images';
+        $config['max_size']=2048;
+        $config['allowed_types']="png|jpg|jpeg|gif";
+        $config['remove_spaces']=TRUE;
+        $config['overwrite']=TRUE;
+        $config['upload_path']=FCPATH.'images';
 
-$this->load->library('upload');
-$this->upload->initialize($config);
+        $this->load->library('upload');
+        $this->upload->initialize($config);
 
-$this->upload->do_upload('foto');
-$data_image=$this->upload->data('file_name');
-$location='images/';
-$foto=$location.$data_image;
+        $this->upload->do_upload('foto');
+        $data_image=$this->upload->data('file_name');
+        $location='images/';
+        $foto=$location.$data_image;
 
         $data = array(
             'nim' => $nim,
@@ -96,8 +103,8 @@ $foto=$location.$data_image;
             'id' => $id
         );
 
-        $this->m_data->update_data($where,$data,'mahasiswa');
-        redirect('kampus/index');
+            $this->m_data->update_data($where,$data,'mahasiswa');
+            redirect('kampus/index');
     }
 
     function hapus($id) {
@@ -106,4 +113,3 @@ $foto=$location.$data_image;
         redirect('kampus/index');
     }
 }
-

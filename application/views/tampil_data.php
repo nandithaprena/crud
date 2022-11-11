@@ -35,5 +35,6 @@ foreach($mahasiswa as $u) {
     <?php } ?>
 </table>
 <center><?php echo anchor('kampus/tambah','<input type=button value=\'Tambah Data\'>'); ?></center>
+<center><?php echo anchor('login/logout','<input type=button value=\'Logout\'>'); ?><center>
 </body>
 </html>
